@@ -4,6 +4,7 @@ cache: false
 env:
 - URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
 before_install:
+- if [ "$TRAVIS_EVENT_TYPE" -ne "cron"]; then exit 1; fi
 - openssl aes-256-cbc -K $encrypted_4c19bef43f72_key -iv $encrypted_4c19bef43f72_iv
   -in assets/server.key.enc -out assets/server.key -d
 - export SFDX_AUTOUPDATE_DISABLE=true
@@ -21,3 +22,4 @@ script:
 - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg &&
   sfdx force:source:push -u ciorg && sfdx force:apex:test:run -u ciorg -c -r human
 - sfdx force:org:delete -u ciorg -p
+- sfdx force:sourde:convert && sfdx force:mdapi:deploy metadataPackage*
