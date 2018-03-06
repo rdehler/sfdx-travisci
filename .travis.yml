@@ -4,7 +4,6 @@ cache: false
 env:
 - URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
 before_install:
-- if [ "$TRAVIS_EVENT_TYPE" != "cron" ]; then exit 0; fi
 - openssl aes-256-cbc -K $encrypted_4c19bef43f72_key -iv $encrypted_4c19bef43f72_iv
   -in assets/server.key.enc -out assets/server.key -d
 - export SFDX_AUTOUPDATE_DISABLE=true
